@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VamoAChatea">
         <activity
+            android:name=".Perfil"
+            android:exported="false" />
+        <activity
             android:name=".MenuPrincipal"
             android:exported="false" />
         <activity

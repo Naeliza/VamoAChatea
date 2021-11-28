@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                  FirebaseDatabase.getInstance().getReference("user/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(new User(edtUsername.getText().toString(),edtEmail.getText().toString(),""));
+                  //FirebaseDatabase.getInstance().getReference("user/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(new User(edtUsername.getText().toString(),edtEmail.getText().toString(),""));
                    startActivity(new Intent(MainActivity.this,MenuPrincipal.class));
                     Toast.makeText(MainActivity.this, "Signed up successfully", Toast.LENGTH_SHORT).show();
                 }else {
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
            @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                  //  startActivity(new Intent(MainActivity.this,FriendsActivity.class));
+                    startActivity(new Intent(MainActivity.this,MenuPrincipal.class));
                     Toast.makeText(MainActivity.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(MainActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
