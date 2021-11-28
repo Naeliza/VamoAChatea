@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "14301281836",
+    "project_id": "vamoachatea",
+    "storage_bucket": "vamoachatea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:14301281836:android:2cddf51b500150bd6c9b89",
+        "android_client_info": {
+          "package_name": "com.itla.vamoachatea"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "14301281836-4fh10l62fbgfer855fkd4p8a8rnif4f0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBallBNVUG6ZpmbkZ8kUqpTfAtiqLAqNeg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "14301281836-4fh10l62fbgfer855fkd4p8a8rnif4f0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
