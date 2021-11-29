@@ -31,7 +31,7 @@ public class Perfil extends AppCompatActivity {
     //Creando las variables de los botones para inicializarlos
     private Button btnLogOut, btnUpload;
     private ImageView imgProfile;
-    private Uri imagePath;
+    private Uri     imagePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +73,6 @@ public class Perfil extends AppCompatActivity {
         });
     }
 
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -102,8 +100,6 @@ public class Perfil extends AppCompatActivity {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Cargando...");
         progressDialog.show();
-
-
 
         FirebaseStorage.getInstance().getReference("image/"+ UUID.randomUUID().toString()).putFile(imagePath).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
