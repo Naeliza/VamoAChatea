@@ -9,7 +9,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
+
+
+
 import java.util.ArrayList;
 
 public class Adaptador extends RecyclerView.Adapter<Adaptador.UserHolder> {
@@ -33,6 +37,7 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.UserHolder> {
     public UserHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(context).inflate(R.layout.user_holder,parent,false);
+
         return new UserHolder(view);
 
     }

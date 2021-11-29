@@ -27,7 +27,7 @@ public class MenuPrincipal extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ArrayList<Usuario> users;
     private ProgressBar progressBar;
-    private Adaptador usersAdapter;
+    private Adaptador adaptador;
     Adaptador.OnUserClickListener onUserClickListener;
     private SwipeRefreshLayout swipeRefreshLayout;
     String myImageUrl;
@@ -55,14 +55,15 @@ public class MenuPrincipal extends AppCompatActivity {
         onUserClickListener = new Adaptador.OnUserClickListener() {
             @Override
             public void onUserClicked(int position) {
-
-                Toast.makeText(MenuPrincipal.this, "Usuario " + users.get(position).getUsername(), Toast.LENGTH_SHORT).show();
-              /*  startActivity(new Intent(MenuPrincipal.this,MessageActivity.class)
+                startActivity(new Intent(MenuPrincipal.this,MensajesActivity.class)
                         .putExtra("username_of_roommate",users.get(position).getUsername())
                         .putExtra("email_of_roommate",users.get(position).getEmail())
                         .putExtra("img_of_roommate",users.get(position).getProfilePicture())
                         .putExtra("my_img",myImageUrl)
-                );*/
+                );
+
+                Toast.makeText(MenuPrincipal.this, "Usuario " + users.get(position).getUsername(), Toast.LENGTH_SHORT).show();
+
 
             }
         };
@@ -92,9 +93,9 @@ public class MenuPrincipal extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     users.add(dataSnapshot.getValue(Usuario.class));
                 }
-                usersAdapter = new Adaptador(users,MenuPrincipal.this,onUserClickListener);
+                adaptador = new Adaptador(users,MenuPrincipal.this,onUserClickListener);
                 recyclerView.setLayoutManager(new LinearLayoutManager(MenuPrincipal.this));
-                recyclerView.setAdapter(usersAdapter);
+                recyclerView.setAdapter(adaptador);
                 progressBar.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
 
