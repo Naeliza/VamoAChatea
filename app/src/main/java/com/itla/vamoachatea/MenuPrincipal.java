@@ -44,25 +44,19 @@ public class MenuPrincipal extends AppCompatActivity {
         swipeRefreshLayout = findViewById(R.id.swipeLayout);
 
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getUsers();
-                swipeRefreshLayout.setRefreshing(false);
-            }
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            getUsers();
+            swipeRefreshLayout.setRefreshing(false);
         });
 
-        onUserClickListener = new Adaptador.OnUserClickListener() {
-            @Override
-            public void onUserClicked(int position) {
-                startActivity(new Intent(MenuPrincipal.this,MensajesActivity.class)
-                        .putExtra("username_of_roommate",users.get(position).getUsername())
-                        .putExtra("email_of_roommate",users.get(position).getEmail())
-                        .putExtra("img_of_roommate",users.get(position).getProfilePicture())
-                        .putExtra("my_img",myImageUrl)
-                );
-                Toast.makeText(MenuPrincipal.this, "Usuario " + users.get(position).getUsername(), Toast.LENGTH_SHORT).show();
-            }
+        onUserClickListener = position -> {
+            startActivity(new Intent(MenuPrincipal.this,MensajesActivity.class)
+                    .putExtra("username_of_roommate",users.get(position).getUsername())
+                    .putExtra("email_of_roommate",users.get(position).getEmail())
+                    .putExtra("img_of_roommate",users.get(position).getProfilePicture())
+                    .putExtra("my_img",myImageUrl)
+            );
+            Toast.makeText(MenuPrincipal.this, "Usuario " + users.get(position).getUsername(), Toast.LENGTH_SHORT).show();
         };
 
         getUsers();

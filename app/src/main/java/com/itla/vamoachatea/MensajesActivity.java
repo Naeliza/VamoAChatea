@@ -34,11 +34,6 @@ public class MensajesActivity extends AppCompatActivity {
 
     String usernameOfTheRoommate, emailOfRoommate, chatRoomId;
 
-    //max alex => alexmax
-
-    //id of the chat room for max and alex
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,12 +53,9 @@ public class MensajesActivity extends AppCompatActivity {
 
         messages = new ArrayList<>();
 
-        imgSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseDatabase.getInstance().getReference("messages/"+chatRoomId).push().setValue(new Mensaje(FirebaseAuth.getInstance().getCurrentUser().getEmail(),emailOfRoommate,edtMessageInput.getText().toString()));
-                edtMessageInput.setText("");
-            }
+        imgSend.setOnClickListener(view -> {
+            FirebaseDatabase.getInstance().getReference("messages/"+chatRoomId).push().setValue(new Mensaje(FirebaseAuth.getInstance().getCurrentUser().getEmail(),emailOfRoommate,edtMessageInput.getText().toString()));
+            edtMessageInput.setText("");
         });
        messageAdapter = new MensajeAdapter(messages,getIntent().getStringExtra("my_img"),getIntent().getStringExtra("img_of_roommate"),MensajesActivity.this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -74,7 +66,6 @@ public class MensajesActivity extends AppCompatActivity {
         setUpChatRoom();
 
     }
-
 
     private void setUpChatRoom(){
 

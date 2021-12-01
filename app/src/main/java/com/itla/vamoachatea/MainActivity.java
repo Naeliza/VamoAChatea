@@ -42,40 +42,34 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
 
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        btnSubmit.setOnClickListener(view -> {
 
-                if (edtEmail.getText().toString().isEmpty() || edtPassword.getText().toString().isEmpty()){
-                    if (isSigningUp && edtUsername.getText().toString().isEmpty()){
-                        Toast.makeText(MainActivity.this, "Invalid input", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+            if (edtEmail.getText().toString().isEmpty() || edtPassword.getText().toString().isEmpty()){
+                if (isSigningUp && edtUsername.getText().toString().isEmpty()){
+                    Toast.makeText(MainActivity.this, "Invalid input", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+            }
 
-                if (isSigningUp){
-                    handleSignUp();
-                }else {
-                    handleLogin();
-                }
+            if (isSigningUp){
+                handleSignUp();
+            }else {
+                handleLogin();
             }
         });
 
         //Metodo para saber si se logueara o registrara la persona
-        txtLoginInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isSigningUp){
-                    isSigningUp = false;
-                    edtUsername.setVisibility(View.GONE);
-                    btnSubmit.setText("Loguearse");
-                    txtLoginInfo.setText("¿No tienes cuenta? Registrate");
-                }else {
-                    isSigningUp = true;
-                    edtUsername.setVisibility(View.VISIBLE);
-                    btnSubmit.setText("Registrarse");
-                    txtLoginInfo.setText("¿Tienes cuenta? logueate");
-                }
+        txtLoginInfo.setOnClickListener(view -> {
+            if (isSigningUp){
+                isSigningUp = false;
+                edtUsername.setVisibility(View.GONE);
+                btnSubmit.setText("Loguearse");
+                txtLoginInfo.setText("¿No tienes cuenta? Registrate");
+            }else {
+                isSigningUp = true;
+                edtUsername.setVisibility(View.VISIBLE);
+                btnSubmit.setText("Registrarse");
+                txtLoginInfo.setText("¿Tienes cuenta? logueate");
             }
         });
 

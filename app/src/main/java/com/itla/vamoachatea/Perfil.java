@@ -45,31 +45,20 @@ public class Perfil extends AppCompatActivity {
 
 
         //Logica para subir imagen
-        btnUpload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                uploadImage();
-            }
-        });
+        btnUpload.setOnClickListener(view -> uploadImage());
 
         //Logica para desloguearse
-        btnLogOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(Perfil.this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                finish();
-            }
+        btnLogOut.setOnClickListener(view -> {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(Perfil.this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            finish();
         });
 
         //Para abrir la galeria y poder subir la foto
-        imgProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent photoIntent = new Intent(Intent.ACTION_PICK);
-                photoIntent.setType("image/*");
-                startActivityForResult(photoIntent,1);
-            }
+        imgProfile.setOnClickListener(view -> {
+            Intent photoIntent = new Intent(Intent.ACTION_PICK);
+            photoIntent.setType("image/*");
+            startActivityForResult(photoIntent,1);
         });
     }
 
@@ -105,12 +94,9 @@ public class Perfil extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 if (task.isSuccessful()){
-                    task.getResult().getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Uri> task) {
-                            if (task.isSuccessful()){
-                                updateProfilePicture(task.getResult().toString());
-                            }
+                    task.getResult().getStorage().getDownloadUrl().addOnCompleteListener(task1 -> {
+                        if (task1.isSuccessful()){
+                            updateProfilePicture(task1.getResult().toString());
                         }
                     });
                     Toast.makeText(Perfil.this, "Imagen correctamente guardada", Toast.LENGTH_SHORT).show();
