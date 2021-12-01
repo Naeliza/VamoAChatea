@@ -61,10 +61,7 @@ public class MenuPrincipal extends AppCompatActivity {
                         .putExtra("img_of_roommate",users.get(position).getProfilePicture())
                         .putExtra("my_img",myImageUrl)
                 );
-
                 Toast.makeText(MenuPrincipal.this, "Usuario " + users.get(position).getUsername(), Toast.LENGTH_SHORT).show();
-
-
             }
         };
 
