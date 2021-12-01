@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MensajesActivity extends AppCompatActivity {
 
@@ -33,6 +34,11 @@ public class MensajesActivity extends AppCompatActivity {
     private ArrayList<Mensaje> messages;
 
     String usernameOfTheRoommate, emailOfRoommate, chatRoomId;
+
+    //max alex => alexmax
+
+    //id of the chat room for max and alex
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +60,7 @@ public class MensajesActivity extends AppCompatActivity {
         messages = new ArrayList<>();
 
         imgSend.setOnClickListener(view -> {
-            FirebaseDatabase.getInstance().getReference("messages/"+chatRoomId).push().setValue(new Mensaje(FirebaseAuth.getInstance().getCurrentUser().getEmail(),emailOfRoommate,edtMessageInput.getText().toString()));
+            FirebaseDatabase.getInstance().getReference("messages/"+chatRoomId).push().setValue(new Mensaje(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail(),emailOfRoommate,edtMessageInput.getText().toString()));
             edtMessageInput.setText("");
         });
        messageAdapter = new MensajeAdapter(messages,getIntent().getStringExtra("my_img"),getIntent().getStringExtra("img_of_roommate"),MensajesActivity.this);
@@ -67,12 +73,13 @@ public class MensajesActivity extends AppCompatActivity {
 
     }
 
+
     private void setUpChatRoom(){
 
         FirebaseDatabase.getInstance().getReference("user/"+ FirebaseAuth.getInstance().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String myUsername = snapshot.getValue(Usuario.class).getUsername();
+                String myUsername = Objects.requireNonNull(snapshot.getValue(Usuario.class)).getUsername();
                 if(usernameOfTheRoommate.compareTo(myUsername)>0){
                     chatRoomId = myUsername + usernameOfTheRoommate;
                 }else if(usernameOfTheRoommate.compareTo(myUsername) == 0){
