@@ -1,5 +1,7 @@
 package com.itla.vamoachatea;
 
+import static java.util.Objects.requireNonNull;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,11 +37,6 @@ public class MensajesActivity extends AppCompatActivity {
 
     String usernameOfTheRoommate, emailOfRoommate, chatRoomId;
 
-    //max alex => alexmax
-
-    //id of the chat room for max and alex
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +57,7 @@ public class MensajesActivity extends AppCompatActivity {
         messages = new ArrayList<>();
 
         imgSend.setOnClickListener(view -> {
-            FirebaseDatabase.getInstance().getReference("messages/"+chatRoomId).push().setValue(new Mensaje(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail(),emailOfRoommate,edtMessageInput.getText().toString()));
+            FirebaseDatabase.getInstance().getReference("messages/"+chatRoomId).push().setValue(new Mensaje(requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail(),emailOfRoommate,edtMessageInput.getText().toString()));
             edtMessageInput.setText("");
         });
        messageAdapter = new MensajeAdapter(messages,getIntent().getStringExtra("my_img"),getIntent().getStringExtra("img_of_roommate"),MensajesActivity.this);
@@ -73,13 +70,18 @@ public class MensajesActivity extends AppCompatActivity {
 
     }
 
-
     private void setUpChatRoom(){
 
         FirebaseDatabase.getInstance().getReference("user/"+ FirebaseAuth.getInstance().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String myUsername = Objects.requireNonNull(snapshot.getValue(Usuario.class)).getUsername();
+                if (!snapshot.exists()) {
+                    return;
+                }
+
+                Usuario user = snapshot.getValue(Usuario.class);
+                String myUsername = user.getUsername();
+
                 if(usernameOfTheRoommate.compareTo(myUsername)>0){
                     chatRoomId = myUsername + usernameOfTheRoommate;
                 }else if(usernameOfTheRoommate.compareTo(myUsername) == 0){
