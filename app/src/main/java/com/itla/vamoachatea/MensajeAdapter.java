@@ -45,7 +45,7 @@ public class MensajeAdapter extends RecyclerView.Adapter<MensajeAdapter.MensajeH
 
         ConstraintLayout constraintLayout = holder.ccll;
 
-        if (messages.get(position).getSender().equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail())){
+        if (messages.get(position).getSender().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
             Glide.with(context).load(senderImg).error(R.drawable.account_img).placeholder(R.drawable.account_img).into(holder.profImage);
             ConstraintSet constraintSet = new ConstraintSet();
             constraintSet.clone(constraintLayout);
