@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -59,11 +60,14 @@ public class MensajesActivity extends AppCompatActivity {
 
         messages = new ArrayList<>();
 
-        imgSend.setOnClickListener(view -> {
-            FirebaseDatabase.getInstance().getReference("messages/"+chatRoomId).push().setValue(new Mensaje(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail(),emailOfRoommate,edtMessageInput.getText().toString()));
-            edtMessageInput.setText("");
+        imgSend.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseDatabase.getInstance().getReference("messages/"+chatRoomId).push().setValue(new Mensaje(FirebaseAuth.getInstance().getCurrentUser().getEmail(),emailOfRoommate,edtMessageInput.getText().toString()));
+                edtMessageInput.setText("");
+            }
         });
-       messageAdapter = new MensajeAdapter(messages,getIntent().getStringExtra("my_img"),getIntent().getStringExtra("img_of_roommate"),MensajesActivity.this);
+        messageAdapter = new MensajeAdapter(messages,getIntent().getStringExtra("my_img"),getIntent().getStringExtra("img_of_roommate"),MensajesActivity.this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(messageAdapter);
 
@@ -79,7 +83,7 @@ public class MensajesActivity extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference("user/"+ FirebaseAuth.getInstance().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String myUsername = Objects.requireNonNull(snapshot.getValue(Usuario.class)).getUsername();
+                String myUsername = snapshot.getValue(Usuario.class).getUsername();
                 if(usernameOfTheRoommate.compareTo(myUsername)>0){
                     chatRoomId = myUsername + usernameOfTheRoommate;
                 }else if(usernameOfTheRoommate.compareTo(myUsername) == 0){
