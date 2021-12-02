@@ -33,7 +33,7 @@
             android:id="@+id/txt_message_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="gag ga gagaw wwa gaagagagwgga agg agagawaggagawgawgwagaw"
+            tools:text="    texto de prueba"
             android:maxWidth="200dp"
             android:padding="5dp"
             android:layout_marginHorizontal="9dp"
