@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class MensajeAdapter extends RecyclerView.Adapter<MensajeAdapter.MessageHolder> {
+public class MensajeAdapter extends RecyclerView.Adapter<MensajeAdapter.MensajeHolder> {
     private ArrayList<Mensaje> messages;
     private String senderImg, receiverImg;
     private Context context;
@@ -32,20 +32,20 @@ public class MensajeAdapter extends RecyclerView.Adapter<MensajeAdapter.MessageH
 
     @NonNull
     @Override
-    public MessageHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MensajeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.mensaje_holder,parent,false);
-        return new MessageHolder(view);
+        return new MensajeHolder(view);
     }
 
 
 
     @Override
-    public void onBindViewHolder(@NonNull MessageHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MensajeHolder holder, int position) {
         holder.txtMessage.setText(messages.get(position).getContet());
 
         ConstraintLayout constraintLayout = holder.ccll;
 
-        if (messages.get(position).getSender().equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail())){
+        if (messages.get(position).getSender().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
             Glide.with(context).load(senderImg).error(R.drawable.account_img).placeholder(R.drawable.account_img).into(holder.profImage);
             ConstraintSet constraintSet = new ConstraintSet();
             constraintSet.clone(constraintLayout);
@@ -72,12 +72,12 @@ public class MensajeAdapter extends RecyclerView.Adapter<MensajeAdapter.MessageH
         return messages.size();
     }
 
-    class MessageHolder extends RecyclerView.ViewHolder{
+    class MensajeHolder extends RecyclerView.ViewHolder{
         ConstraintLayout ccll;
         TextView txtMessage;
         ImageView profImage;
 
-        public MessageHolder(@NonNull View itemView) {
+        public MensajeHolder(@NonNull View itemView) {
             super(itemView);
 
             ccll = itemView.findViewById(R.id.ccLayout);
